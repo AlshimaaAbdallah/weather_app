@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:weather_app/widgets/imagePlaceholder.dart';
+import 'package:weather_app/presentation/widgets/imagePlaceholder.dart';
 
 class WeatherImage extends StatelessWidget {
   const WeatherImage({super.key, required this.imageUrl});

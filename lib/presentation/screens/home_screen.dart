@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/cubits/get_weather_cubit/get_weather_cubit.dart';
-import 'package:weather_app/cubits/get_weather_cubit/get_weather_cubit_states.dart';
-import 'package:weather_app/views/search_view.dart';
-import 'package:weather_app/widgets/no_weather_body.dart';
-import 'package:weather_app/widgets/weather_info_body.dart';
+import 'package:weather_app/presentation/controllers/cubits/get_weather_cubit/get_weather_cubit.dart';
+import 'package:weather_app/presentation/controllers/cubits/get_weather_cubit/get_weather_cubit_states.dart';
+import 'package:weather_app/presentation/screens/search_screen.dart';
+import 'package:weather_app/presentation/widgets/no_weather_body.dart';
+import 'package:weather_app/presentation/widgets/weather_info_body.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
               await Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return SearchView();
+                    return SearchScreen();
                   },
                 ),
               );
@@ -41,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
           if (state is InitialWeatherState) {
             return NoWeatherBody();
           } else if (state is WeatherLoadedState) {
-            return WeatherInfoBody();
+            return WeatherInfoBody(weatherEntity: state.weatherEntity);
           } else {
             return Center(
               child: const Text(

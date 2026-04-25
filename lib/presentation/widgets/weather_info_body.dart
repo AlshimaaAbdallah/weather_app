@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/cubits/get_weather_cubit/get_weather_cubit.dart';
-import 'package:weather_app/main.dart';
-import 'package:weather_app/models/weather_model.dart';
-import 'package:weather_app/widgets/weather_image.dart';
+import 'package:weather_app/domain/entities/weather_entity.dart';
+import 'package:weather_app/presentation/widgets/get_theme_color.dart';
+import 'package:weather_app/presentation/widgets/weather_image.dart';
 
 class WeatherInfoBody extends StatelessWidget {
-  WeatherInfoBody({Key? key}) : super(key: key);
+  const WeatherInfoBody({super.key, required this.weatherEntity});
+  final WeatherEntity weatherEntity;
+
   @override
   Widget build(BuildContext context) {
-    WeatherModel weatherModel = BlocProvider.of<GetWeatherCubit>(
-      context,
-    ).weatherModel!;
-
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            getThemeColor(c: weatherModel.weatherCondition),
-            getThemeColor(c: weatherModel.weatherCondition)[300]!,
+            GetThemeColor().getThemeColor(
+              weatherCondotion: weatherEntity.weatherCondition,
+            ),
+            GetThemeColor().getThemeColor(
+              weatherCondotion: weatherEntity.weatherCondition,
+            )[300]!,
             // دي material colour عشان كده استخدمنا معاها ال []
-            getThemeColor(c: weatherModel.weatherCondition)[50]!,
+            GetThemeColor().getThemeColor(
+              weatherCondotion: weatherEntity.weatherCondition,
+            )[50]!,
             //كان ممكن نستخدم دي بردو ونغير القيم من 1الي 0
             // Theme.of(context).primaryColor.withValues(alpha: 1),
             // Theme.of(context).primaryColor.withValues(alpha: 0.5),
@@ -36,31 +38,31 @@ class WeatherInfoBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              weatherModel.cityName,
+              weatherEntity.cityName,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
             ),
             const SizedBox(height: 32),
             Text(
-              "Updated at ${weatherModel.date.hour}: ${weatherModel.date.minute}",
+              "Updated at ${weatherEntity.date.hour}: ${weatherEntity.date.minute}",
               style: TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 32),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                WeatherImage(imageUrl: weatherModel.image),
+                WeatherImage(imageUrl: weatherEntity.image),
                 Text(
-                  weatherModel.temp.round().toString(),
+                  weatherEntity.temp.round().toString(),
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                 ),
                 Column(
                   children: [
                     Text(
-                      'Maxtemp: ${weatherModel.maxTemp.round()}',
+                      'Maxtemp: ${weatherEntity.maxTemp.round()}',
                       style: TextStyle(fontSize: 16),
                     ),
                     Text(
-                      'Mintemp: ${weatherModel.minTemp.round()}',
+                      'Mintemp: ${weatherEntity.minTemp.round()}',
                       style: TextStyle(fontSize: 16),
                     ),
                   ],
@@ -69,7 +71,7 @@ class WeatherInfoBody extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             Text(
-              weatherModel.weatherCondition,
+              weatherEntity.weatherCondition,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
             ),
           ],

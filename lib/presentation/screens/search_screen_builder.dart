@@ -1,22 +1,21 @@
-// import 'package:dio/dio.dart';
 // import 'package:flutter/material.dart';
-// import 'package:my_weather_app/models/weather_model.dart';
-// import 'package:my_weather_app/services/weather_service.dart';
-// import 'package:my_weather_app/widgets/snapshot_has_error.dart';
-// import 'package:my_weather_app/widgets/weather_info_body.dart';
+// import 'package:weather_app/data/models/weather_model.dart';
+// import 'package:weather_app/services/weather_service.dart';
+// import 'package:weather_app/widgets/snapshot_has_error.dart';
+// import 'package:weather_app/widgets/weather_info_body.dart';
 
-// class SearchViewBuilder extends StatefulWidget {
-//   const SearchViewBuilder({super.key, required this.cityName});
+// class SearchScreenBuilder extends StatefulWidget {
+//   const SearchScreenBuilder({super.key, required this.cityName});
 //   final String cityName;
 //   @override
-//   State<SearchViewBuilder> createState() => _SearchViewBuilderState();
+//   State<SearchScreenBuilder> createState() => _SearchScreenBuilderState();
 // }
 
-// class _SearchViewBuilderState extends State<SearchViewBuilder> {
+// class _SearchScreenBuilderState extends State<SearchScreenBuilder> {
 //   late final Future<WeatherModel> futureWeather;
 //   @override
 //   void initState() {
-//     futureWeather = WeatherService(Dio()).getWeather(cityName: widget.cityName);
+//     futureWeather = WeatherService.getWeather(cityName: widget.cityName);
 //     super.initState();
 //   }
 

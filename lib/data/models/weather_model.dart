@@ -1,12 +1,14 @@
-class WeatherModel {
+import 'package:weather_app/domain/entities/weather_entity.dart';
+
+class WeatherModel extends WeatherEntity {
   WeatherModel({
-    required this.cityName,
-    required this.date,
-    required this.image,
-    required this.temp,
-    required this.maxTemp,
-    required this.minTemp,
-    required this.weatherCondition,
+    required super.cityName,
+    required super.date,
+    required super.image,
+    required super.temp,
+    required super.maxTemp,
+    required super.minTemp,
+    required super.weatherCondition,
   });
   factory WeatherModel.fromJson(json) {
     return WeatherModel(
@@ -21,11 +23,15 @@ class WeatherModel {
     );
   }
 
-  final String cityName;
-  final DateTime date;
-  final String? image;
-  final double temp;
-  final double maxTemp;
-  final double minTemp;
-  final String weatherCondition;
+  WeatherEntity toEntity() {
+    return WeatherEntity(
+      cityName: cityName,
+      date: date,
+      image: image,
+      temp: temp,
+      maxTemp: maxTemp,
+      minTemp: minTemp,
+      weatherCondition: weatherCondition,
+    );
+  }
 }

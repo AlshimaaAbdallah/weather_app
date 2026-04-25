@@ -1,18 +1,20 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:weather_app/models/weather_model.dart';
+import 'package:weather_app/core/constants/constants.dart';
+import 'package:weather_app/data/models/weather_model.dart';
 
-class WeatherService {
-  final Dio dio;
-  WeatherService(this.dio);
-  final String baseUrl = "https://api.weatherapi.com/v1/";
-  final String apiKey = "d2584ea26888455ebe5112920261501";
+abstract class BaseRemoteDataSource {
+  Future<WeatherModel> getWeatherByCityName(String cityName);
+}
 
-  Future<WeatherModel> getCurrentWeather({required String cityName}) async {
+class RemoteDataSource implements BaseRemoteDataSource {
+  Dio dio = Dio();
+  @override
+  Future<WeatherModel> getWeatherByCityName(String cityName) async {
     try {
       final Response response = await dio.get(
-        "$baseUrl/forecast.json?key=$apiKey&q=$cityName",
+        "${Constants.baseUrl}/forecast.json?key=${Constants.apiKey}&q=$cityName",
       );
       WeatherModel currentWeather = WeatherModel.fromJson(response.data);
       return currentWeather;
